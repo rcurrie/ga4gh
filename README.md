@@ -1,5 +1,12 @@
 # Summary
-Bulk import of genomic data into a ga4gh server
+Bulk import of rna seq data into a ga4gh server
+
+Goal is a utility easily importa an expression and phenotype
+file with multiple samples into a ga4gh server.
+
+For example the tsv phenotype and hugo rsem files for
+TARGET located here:
+https://xenabrowser.net/datapages/?cohort=TARGET%20Pan-Cancer%20(PANCAN)
 
 # Running
 
