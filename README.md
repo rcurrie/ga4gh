@@ -11,6 +11,7 @@ https://xenabrowser.net/datapages/?cohort=TARGET%20Pan-Cancer%20(PANCAN)
 # Running
 
 Download the reference:
+
     make download
 
 Delete any database files in ./data
@@ -22,24 +23,28 @@ Start a ga4gh server container
 We will now have a shell inside the container in the server's directory
 
 Change to root to access contents of this repo mapped inside the container
+    
     cd ~
 
 Create a new registry database
+    
     make init
 
 Install the reference
+    
     make reference
 
 Initialize the registry, populate an rnaseq dataset, and install it
+    
     make populate install
 
-List the contents of the registry via command line (should match what server shows in browser later)
-    make list
 
 Run the server
+
     make run_server
 
 Should be able to see contents of server from host machine via
+    
     curl localhost:8000
 
 # References
