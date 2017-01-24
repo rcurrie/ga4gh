@@ -1,12 +1,6 @@
-debug:
-	docker run -it --rm --name ga4gh \
-		-v `pwd`/data:/data \
-		-v `pwd`:/root \
-		-p 5000:8000 \
-		ga4gh/server python server_dev.py --host 0.0.0.0 --config-file /root/config.py
-
-shell:
-	docker exec -it ga4gh /bin/bash
+clean:
+	mkdir -p data
+	rm -f data/*.db
 
 download:
 	# Download HG38 Reference and convert to bgzip
@@ -14,8 +8,20 @@ download:
 	gunzip data/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz
 	bgzip data/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna
 
+debug:
+	# Start ga4gh container
+	docker run -it --rm --name ga4gh \
+		-v `pwd`/data:/data \
+		-v `pwd`:/root \
+		-p 8000:8000 \
+		ga4gh/server /bin/bash
+
+run_server:
+	# Change into the server directory and run
+	cd /srv/ga4gh/server && python server_dev.py --host 0.0.0.0 --config-file /root/config.py
+
 init:
-	# Create a new registry
+	# Create a new registry database
 	ga4gh_repo init --force /data/registry.db
 
 reference:
@@ -48,7 +54,3 @@ uninstall:
 list:
 	# List all the objects in the server
 	ga4gh_repo list /data/registry.db
-
-
-stop:
-	docker stop ga4gh || true && docker rm ga4gh || true
